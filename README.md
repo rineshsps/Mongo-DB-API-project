@@ -30,7 +30,10 @@
   DELETE /api/Books/{id}
 
 ```
- 
+ ```http
+  GET api/Books/AggreageSample
+
+```
 #### Task 2 : Validate Binary String
 
 ```http
