@@ -30,7 +30,10 @@
   DELETE /api/Books/{id}
 
 ```
- 
+ ```http
+  GET api/Books/AggreageSample
+
+```
 #### Task 2 : Validate Binary String
 
 ```http
@@ -56,8 +59,9 @@
 | Collection        | `Books` 
 
 
+```
   
-## Test Senior Backend Web Developer 
+## Tech stack
 
 - net5.0, Swagger, Monogo DB, Automapper, Mirosoft Logger, git
 
