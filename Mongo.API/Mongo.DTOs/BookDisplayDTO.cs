@@ -1,8 +1,8 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace Mongo.Database.Models
+namespace Mongo.DTOs
 {
-    public class Book
+    public class BookDisplayDTO
     {
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
@@ -15,6 +15,6 @@ namespace Mongo.Database.Models
         public string Language { get; set; }
         public int Rating { get; set; }
         public int Pages { get; set; }
-        public Publisher Publisher { get; set; }
+        public PublisherDTO Publisher { get; set; }
     }
 }

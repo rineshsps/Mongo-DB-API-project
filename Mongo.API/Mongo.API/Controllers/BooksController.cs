@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Mongo.Database.Models;
+using Mongo.DTOs;
 using Mongo.Services.Interfaces;
 using System;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Book = Mongo.Database.Models.Book;
 
 namespace Mongo.API.Controllers
 {
@@ -14,15 +14,17 @@ namespace Mongo.API.Controllers
     {
         private readonly IBookServices _bookServices;
         private readonly ILogger<BooksController> _logger;
+        private readonly IMapper _mapper;
 
         /// <summary>
         /// book services 
         /// </summary>
         /// <param name="bookServices"></param>
-        public BooksController(IBookServices bookServices, ILogger<BooksController> logger)
+        public BooksController(IBookServices bookServices, ILogger<BooksController> logger, IMapper mapper)
         {
             _bookServices = bookServices;
             _logger = logger;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -40,10 +42,15 @@ namespace Mongo.API.Controllers
             {
                 _logger.LogError(ex, "Exception api/GetBooks");
 
-                throw;
+                return StatusCode(500);
             }
         }
 
+        /// <summary>
+        /// Get book by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}", Name = "GetBook")]
         public IActionResult GetBook(string id)
         {
@@ -62,25 +69,36 @@ namespace Mongo.API.Controllers
             {
                 _logger.LogError(ex, $"Exception get books api/GetBook{id}");
 
-                throw;
+                return StatusCode(500);
             }
         }
 
+        /// <summary>
+        /// Create book
+        /// </summary>
+        /// <param name="book"></param>
+        /// <returns></returns>
         [HttpPost]
-        public IActionResult AddBook(Book book)
+        public IActionResult AddBook(BookCreateDTO book)
         {
             try
             {
-                _bookServices.Create(book);
-                return CreatedAtRoute("GetBook", new { id = book.Id }, book);
+                var model = _mapper.Map<Book>(book);
+                var display = _bookServices.Create(model);
+                return CreatedAtRoute("GetBook", new { id = display.Id }, display);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Add books api/AddBook");
-                throw;
+                return StatusCode(500);
             }
         }
 
+        /// <summary>
+        /// Delete book
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(string id)
         {
@@ -91,23 +109,29 @@ namespace Mongo.API.Controllers
             }
             catch (Exception ex)
             {
-
                 _logger.LogError(ex, $"Exeption DeleteBook api/DeleteBook");
-                throw;
+                return StatusCode(500);
             }
         }
 
+        /// <summary>
+        /// Update books
+        /// </summary>
+        /// <param name="book"></param>
+        /// <returns></returns>
+
         [HttpPut]
-        public IActionResult UpdateBook(Book book)
+        public IActionResult UpdateBook(BookUpdateDTO book)
         {
             try
             {
-                return Ok(_bookServices.Update(book));
+                var model = _mapper.Map<Book>(book);
+                return Ok(_bookServices.Update(model));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Exeption Update book api/UpdateBook");
-                throw;
+                return StatusCode(500);
             }
 
         }

@@ -22,7 +22,7 @@ namespace Mongo.API.Controllers
         //[HttpGet]
         [HttpGet()]
         [Route("ValidateBinary")]
-        public bool Get([StringLength(50, MinimumLength = 2, ErrorMessage = "Please add min two charater")] string value)
+        public bool Get([Required][StringLength(50, MinimumLength = 2, ErrorMessage = "Please add min two charater")] string value)
         {
             return ValidateBinary(value);
         }

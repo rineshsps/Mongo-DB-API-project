@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Mongo.Database;
 using Mongo.Database.Interfaces;
@@ -28,6 +27,8 @@ namespace Mongo.API
             services.Configure<ApplicationSettings>(Configuration);
             services.AddTransient<IBookServices, BookServices>();
             services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
+            // services.AddAutoMapper(c => c.AddProfile<MappingProfile>(), typeof(Startup));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mongo.API", Version = "v1" });
@@ -37,7 +38,7 @@ namespace Mongo.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-           // if (env.IsDevelopment())
+            // if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
