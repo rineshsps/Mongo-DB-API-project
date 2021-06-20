@@ -133,7 +133,22 @@ namespace Mongo.API.Controllers
                 _logger.LogError(ex, $"Exeption Update book api/UpdateBook");
                 return StatusCode(500);
             }
+        }
 
+        [HttpGet]
+        [Route("AggreageSample")]
+        public dynamic AggreageSample()
+        {
+            try
+            {
+                return _bookServices.AggreageSample();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Exception get books api/AggreageSample");
+
+                return StatusCode(500);
+            }
         }
     }
 }

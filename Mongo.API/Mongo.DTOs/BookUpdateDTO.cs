@@ -19,9 +19,10 @@ namespace Mongo.DTOs
         [Required]
         [MinLength(2)]
         public string Author { get; set; }
+        [Required]
+        [MinLength(2)]
         public string Language { get; set; }
         public int Rating { get; set; }
-        [Range(4, Double.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
         public int Pages { get; set; }
         public PublisherDTO Publisher { get; set; }
     }

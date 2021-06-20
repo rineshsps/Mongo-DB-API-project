@@ -10,5 +10,6 @@ namespace Mongo.Services.Interfaces
         Book Create(Book book);
         Book Update(Book book);
         void Delete(string id);
+        dynamic AggreageSample();
     }
 }

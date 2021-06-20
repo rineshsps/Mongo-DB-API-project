@@ -40,5 +40,27 @@ namespace Mongo.Services
             _books.ReplaceOne(b => b.Id == book.Id, book);
             return book;
         }
+
+        public dynamic AggreageSample()
+        {
+
+            var singleFieldAggregate = _books.Aggregate()
+                .Group(u => u.Language,
+                    ac => new
+                    {
+                        language = ac.Key,
+                        total = ac.Sum(u => 1)
+                    });
+            var groupedLanguage = singleFieldAggregate.ToListAsync();
+
+            dynamic result = new
+            {
+                TotalBooks = _books.Find(book => true).ToList().Count,
+                groupedLanguage = groupedLanguage
+            };
+
+
+            return result;
+        }
     }
 }
