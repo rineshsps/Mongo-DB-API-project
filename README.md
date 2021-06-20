@@ -1,7 +1,12 @@
 
-#Test Senior Backend Web Developer 
 
-Deployed URL : https://mongo-db-api-app.herokuapp.com/swagger/index.html
+## Test Senior Backend Web Developer 
+
+
+## Demo
+
+ https://mongo-db-api-app.herokuapp.com/swagger/index.html
+
 
 
 
@@ -50,5 +55,10 @@ Deployed URL : https://mongo-db-api-app.herokuapp.com/swagger/index.html
 | Database          | `BookstoreDb` 
 | Collection        | `Books` 
 
+
+  
+## Test Senior Backend Web Developer 
+
+- net5.0, Swagger, Monogo DB, Automapper, Mirosoft Logger, git
 
   
