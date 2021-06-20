@@ -3,6 +3,7 @@ using Mongo.Database.Models;
 using Mongo.Services.Interfaces;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Mongo.Services
 {
@@ -28,7 +29,10 @@ namespace Mongo.Services
 
         public Book GetBook(string id) => _books.Find(book => book.Id == id).First();
 
-        public List<Book> GetBooks() => _books.Find(book => true).ToList();
+        public List<Book> GetBooks()
+        {
+            return _books.Find(book => true).ToList();
+        }
 
         public Book Update(Book book)
         {

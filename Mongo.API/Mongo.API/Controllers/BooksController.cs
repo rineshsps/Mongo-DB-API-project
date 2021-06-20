@@ -42,7 +42,6 @@ namespace Mongo.API.Controllers
 
                 throw;
             }
-
         }
 
         [HttpGet("{id}", Name = "GetBook")]
@@ -80,7 +79,6 @@ namespace Mongo.API.Controllers
                 _logger.LogError(ex, $"Add books api/AddBook");
                 throw;
             }
-
         }
 
         [HttpDelete("{id}")]
@@ -97,7 +95,6 @@ namespace Mongo.API.Controllers
                 _logger.LogError(ex, $"Exeption DeleteBook api/DeleteBook");
                 throw;
             }
-
         }
 
         [HttpPut]
